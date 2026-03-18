@@ -1,3 +1,8 @@
+# Formula 1 Manager
+Create your own F1 team or manage your favourite. Choose your drivers, tyres and more to lead your team to the World Championship.
+
+
+
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
 ### Folosiți template-ul corespunzător grupei voastre!
