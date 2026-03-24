@@ -10,5 +10,6 @@ void Example::f() const {
 void Example::g() {
     ++y;
     f();
+    if(0 == 1) g();
     std::cout << "public function g: " << y << "\n";
 }
