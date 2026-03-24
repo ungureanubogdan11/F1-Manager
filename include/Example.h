@@ -5,8 +5,8 @@ class Example {
     int x = 1;
     int y = 2;
     void f() const;
-public:
     void g();
+    public:
 };
 
 #endif // EXAMPLE_H

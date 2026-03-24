@@ -96,7 +96,6 @@ class Car {
     // int enginePower;
     
     public:
-    Car() = default;
 
     Car(const int topSpeed, const int acceleration, const int cornerSpeed, const int aeroPerformance) {
         
@@ -176,6 +175,7 @@ class Team {
         this->researchPower = researchPower;
         this->pitCrewSpeed = pitCrewSpeed;
         this->strategyIntel = strategyIntel;
+        this->car = nullptr;
     };
 
     friend std::ostream& operator<<(std::ostream& os, const Team& t) {
@@ -199,10 +199,6 @@ class Team {
         int engine = interval(int((researchPower + budget) / 2 + dist(gen)), 60, 99);
 
         car = new Car(topSpeed, accel, aero, engine);
-    }
-
-    void add_driver(Driver* const d) {
-        drivers.push_back(d);
     }
 
     void update(int place) {
@@ -254,7 +250,6 @@ class Track {
     int cornerSpeed;
 
     public:
-    Track() = default;
 
     Track(const std::string & name, const int laps, const int overtakeDifficulty, const int tyreWear, const int rainProbability, const int topSpeed, const int cornerSpeed) {
         this->name = name;
@@ -293,7 +288,7 @@ class Race {
     Track * track;
     std::vector<Driver* > runningOrder;
     std::vector<Team * > teams;
-    std::vector<int> gaps;
+    // std::vector<int> gaps;
     std::unordered_map<int, Team* > teamLookup;
 
     public: 
@@ -331,7 +326,7 @@ class Race {
         std::vector<std::pair<double, Driver*>> results;
 
         for (Driver* d : runningOrder) {
-            Team* t = teamLookup[d->get_team_id()];
+            const Team* t = teamLookup[d->get_team_id()];
             const Car* c = t->get_car();
 
             double carPower = (c->get_topSpeed() * (track->get_topSpeed_weight() / 100.0)) +
@@ -357,7 +352,7 @@ class Race {
         std::sort(results.begin(), results.end(), [](const auto& a, const auto& b) { return a.first > b.first; });
 
         runningOrder.clear();
-        for (auto& p : results) runningOrder.push_back(p.second);
+        for (const auto& p : results) runningOrder.push_back(p.second);
     }
 
     ~Race() = default;
@@ -385,7 +380,7 @@ class Championship {
         
     }
 
-    void update_standings(Race * const race) {
+    void update_standings(const Race * const race) {
         auto results = race->get_runningOrder();
         for(int i = 0; i < (int) results.size(); ++i) {
             Driver* d = driverLookup[results[i]->get_id()];
@@ -394,10 +389,10 @@ class Championship {
             t->update(i + 1);
         }
 
-        sort(driverStandings.begin(), driverStandings.end(), [](Driver* a, Driver* b) {
+        sort(driverStandings.begin(), driverStandings.end(), [](const Driver* a, const Driver* b) {
             return *a < *b;
         });
-        sort(teamStandings.begin(), teamStandings.end(), [](Team* a, Team* b) {
+        sort(teamStandings.begin(), teamStandings.end(), [](const Team* a, const Team* b) {
             return *a < *b;
         }); 
 
@@ -484,6 +479,8 @@ int main() {
     for(auto d : allParticipants) delete d;
     for(auto t : allTeams) delete t;
 
+    delete bahrain; delete jeddah; delete melbourne;
+    delete r1; delete r2; delete r3;
 
 
     return 0;
