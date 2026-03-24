@@ -61,7 +61,7 @@ class Driver {
         return this->get_points() > other.get_points();
     }
 
-    const int get_points() const {
+    int get_points() const {
         return points;
     }
 
@@ -69,19 +69,19 @@ class Driver {
         return name;
     }
 
-    const int get_id() const {
+    int get_id() const {
         return id;
     }
 
-    const int get_team_id() const {
+    int get_team_id() const {
         return team_id;
     }
 
-    const int get_pace() const { return pace; }
-    const int get_experience() const { return experience; }
-    const int get_aggressiveness() const { return aggressiveness; }
-    const int get_awareness() const { return awareness; }
-    const int get_tyreManagement() const { return tyreManagement; }
+    int get_pace() const { return pace; }
+    int get_experience() const { return experience; }
+    int get_aggressiveness() const { return aggressiveness; }
+    int get_awareness() const { return awareness; }
+    int get_tyreManagement() const { return tyreManagement; }
 
     ~Driver() = default;
 
@@ -134,10 +134,10 @@ class Car {
         return *this;
     }
 
-    const int get_topSpeed() const { return topSpeed; }
-    const int get_cornerSpeed() const { return cornerSpeed; }
-    const int get_acceleration() const { return acceleration; }
-    const int get_aeroPerformance() const { return aeroPerformance; }
+    int get_topSpeed() const { return topSpeed; }
+    int get_cornerSpeed() const { return cornerSpeed; }
+    int get_acceleration() const { return acceleration; }
+    int get_aeroPerformance() const { return aeroPerformance; }
 
     ~Car() = default;
 };
@@ -223,15 +223,15 @@ class Team {
         return name;
     }
 
-    const int get_points() const {
+    int get_points() const {
         return points;
     }
 
-    const int get_id() const {
+    int get_id() const {
         return id;
     }
 
-    Car * const get_car() const {
+    Car * get_car() const {
         return car;
     }
 
@@ -273,9 +273,9 @@ class Track {
         return os;
     }
 
-    const int get_topSpeed_weight() const { return topSpeed; }
-    const int get_cornerSpeed_weight() const { return cornerSpeed; }
-    const int get_tyreWear() const { return tyreWear; }
+    int get_topSpeed_weight() const { return topSpeed; }
+    int get_cornerSpeed_weight() const { return cornerSpeed; }
+    int get_tyreWear() const { return tyreWear; }
 
     ~Track() = default;
 };
@@ -288,7 +288,7 @@ enum Weather {
 
 class Race {
     int raceNumber;
-    int currentLap;
+    // int currentLap;
     Weather weather;
     Track * track;
     std::vector<Driver* > runningOrder;
@@ -315,7 +315,7 @@ class Race {
         else if (r.weather == WET) os << "Wet";
         else os << "Raining";
         
-        for (int i = 0; i < r.runningOrder.size(); ++i) {
+        for (int i = 0; i < (int) r.runningOrder.size(); ++i) {
             os << i + 1 << ". " << r.runningOrder[i]->get_name() << "\n";
         }
         return os;
@@ -350,7 +350,7 @@ class Race {
                 riskOutcome *= (1.0 - (d->get_awareness() / 200.0)); 
             }
 
-            double totalScore = carPower + driverSkill + riskOutcome;
+            double totalScore = carPower + driverSkill + riskOutcome + strategyFactor;
             results.push_back({totalScore, d});
         }
 
@@ -367,7 +367,7 @@ class Championship {
     std::vector<Driver*> driverStandings;
     std::vector<Team*> teamStandings;
     std::vector<Race*> races;
-    int currentRound;
+    // int currentRound;
 
     std::unordered_map<int, Driver* > driverLookup;
     std::unordered_map<int, Team* > teamLookup;
@@ -387,7 +387,7 @@ class Championship {
 
     void update_standings(Race * const race) {
         auto results = race->get_runningOrder();
-        for(int i = 0; i < results.size(); ++i) {
+        for(int i = 0; i < (int) results.size(); ++i) {
             Driver* d = driverLookup[results[i]->get_id()];
             Team* t = teamLookup[d->get_team_id()];
             d->update(i + 1);
@@ -409,14 +409,14 @@ class Championship {
 
     void print_table() {
         std::cout << "Driver's Standings:\n";
-        for(int i = 0; i < driverStandings.size(); ++i) {
+        for(int i = 0; i < (int) driverStandings.size(); ++i) {
             std::cout << "Driver: " << driverStandings[i]->get_name();
             std::cout << "   Points: " << driverStandings[i]->get_points() << '\n';  
         }
 
         std::cout << "\n";
         std::cout << "Team's Standings:\n";
-        for(int i = 0; i < teamStandings.size(); ++i) {
+        for(int i = 0; i < (int) teamStandings.size(); ++i) {
             std::cout << "Team: " << teamStandings[i]->get_name();
             std::cout << "   Points: " << teamStandings[i]->get_points() << '\n';
         }
