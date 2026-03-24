@@ -178,6 +178,52 @@ class Team {
         this->car = nullptr;
     };
 
+    Team(const Team& other) {
+        this->id = other.id;
+        this->name = other.name;
+        this->drivers = other.drivers;
+        this->budget = other.budget;
+        this->designEfficiency = other.designEfficiency;
+        this->researchPower = other.researchPower;
+        this->pitCrewSpeed = other.pitCrewSpeed;
+        this->strategyIntel = other.strategyIntel;
+        this->racesWon = other.racesWon;
+        this->poles = other.poles;
+        this->points = other.points;
+
+        if (other.car != nullptr) {
+            this->car = new Car(*other.car);
+        } else {
+            this->car = nullptr;
+        }
+    }
+
+    Team& operator=(const Team& other) {
+        if (this == &other) return *this;
+
+        delete this->car;
+
+        this->id = other.id;
+        this->name = other.name;
+        this->drivers = other.drivers;
+        this->budget = other.budget;
+        this->designEfficiency = other.designEfficiency;
+        this->researchPower = other.researchPower;
+        this->pitCrewSpeed = other.pitCrewSpeed;
+        this->strategyIntel = other.strategyIntel;
+        this->racesWon = other.racesWon;
+        this->poles = other.poles;
+        this->points = other.points;
+
+        if (other.car != nullptr) {
+            this->car = new Car(*other.car);
+        } else {
+            this->car = nullptr;
+        }
+
+        return *this;
+    }
+
     friend std::ostream& operator<<(std::ostream& os, const Team& t) {
         os << "Team Name: " << t.name << " (ID: " << t.id << ")\n";
         os << "Points:    " << t.points << " | Wins: " << t.racesWon << "\n";
