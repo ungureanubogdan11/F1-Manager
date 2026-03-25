@@ -478,17 +478,17 @@ int main() {
     Championship f1;
 
     Driver* d1 = new Driver(1, "Charles Leclerc", 101, 50.0, 91, 98, 85, 90, 82);
-    Driver* d2 = new Driver(2, "Lewis Hamilton", 101, 55.0, 99, 94, 80, 98, 95);
+    Driver* d2 = new Driver(2, "Lewis Hamilton", 101, 55.0, 98, 94, 80, 98, 95);
     std::vector<Driver*> ferrariDrivers = {d1, d2};
-    Team* t1 = new Team(101, "Scuderia Ferrari", ferrariDrivers, 100, 98, 98, 95, 92);
+    Team* t1 = new Team(101, "Scuderia Ferrari", ferrariDrivers, 100, 96, 96, 94, 91);
     t1->build_car(); 
 
     
 
-    Driver* d3 = new Driver(3, "Max Verstappen", 102, 55.0, 92, 99, 90, 90, 92);
-    Driver* d4 = new Driver(4, "Liam Lawson", 102, 15.0, 60, 81, 75, 70, 70);
+    Driver* d3 = new Driver(3, "Max Verstappen", 102, 55.0, 92, 99, 93, 93, 92);
+    Driver* d4 = new Driver(4, "Isack Hadjar", 102, 15.0, 70, 81, 75, 75, 73);
     std::vector<Driver*> redbullDrivers = {d3, d4};
-    Team* t2 = new Team(102, "Red Bull Racing", redbullDrivers, 95, 90, 92, 98, 95);
+    Team* t2 = new Team(102, "Red Bull Racing", redbullDrivers, 95, 87, 90, 94, 95);
     t2->build_car();
 
     Driver* d5 = new Driver(5, "Lando Norris", 103, 40.0, 80, 93, 80, 82, 85);
