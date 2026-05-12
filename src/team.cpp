@@ -1,5 +1,7 @@
 #include "team.h"
 #include "driver.h"
+#include "car.h"
+#include "championship.h"
 #include <random>
 #include <ctime>
 
@@ -48,18 +50,47 @@ void Team::build_car() {
     int ts = interval(int(researchPower + dist(gen)), 60, 99);
     int acc = interval(int((designEfficiency + budget) / 2 + dist(gen)), 60, 99);
     int cs = interval(int((designEfficiency + researchPower + budget) / 3 + dist(gen)), 60, 99);
-    int aero = interval(int((researchPower + budget) / 2 + dist(gen)), 60, 99);
 
     if(car) delete car;
-    car = new Car(ts, acc, cs, aero);
+    car = new Car(ts, acc, cs);
 }
 
 void Team::update(int place) {
     racesWon += (place == 1);
-    if(place <= 10) points += gp_points[place - 1];
+    if(place <= 10) points += Championship::getPointsForPlace(place);
 }
 
 std::ostream& operator<<(std::ostream& os, const Team& t) {
     os << "Team: " << t.name << " | Pts: " << t.points;
     return os;
+}
+
+void Team::upgradeCar() {
+    if(!car) return;
+    for(Part* p : car->getParts()) {
+        p->develop(this->researchPower); 
+    }
+}
+
+void Team::processDamage(int raceIntensity) {
+    if (!car) return;
+
+    static std::mt19937 gen(time(0));
+    std::uniform_real_distribution<double> damageProb(0.0, 1.0);
+
+    for (Part* p : car->getParts()) {
+        double baseDamage = raceIntensity / 10;
+
+        if (Engine* e = dynamic_cast<Engine*>(p)) {
+            e->applyDamage(baseDamage * 1.5);
+        } 
+        else if (AeroKit* a = dynamic_cast<AeroKit*>(p)) {
+            if (damageProb(gen) < 0.2) { 
+                a->applyDamage(0.1); 
+            }
+        } 
+        else if (Chassis* c = dynamic_cast<Chassis*>(p)) {
+            c->applyDamage(baseDamage * 0.5);
+        }
+    }
 }

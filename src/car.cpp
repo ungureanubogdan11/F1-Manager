@@ -1,40 +1,60 @@
-#ifndef TEAM_H
-#define TEAM_H
-
 #include "car.h"
-#include <string>
-#include <vector>
+#include "part.h"
+#include <algorithm>
 
-class Driver; 
+Car::Car(int ts, int acc, int cs) 
+    : baseTopSpeed(ts), baseAcceleration(acc), baseCornering(cs) {}
 
-class Team {
-    int id;
-    std::string name;
-    std::vector<Driver*> drivers;
-    Car* car;
+Car::~Car() {
+    for(auto p : parts) delete p;
+}
+
+Car::Car(const Car& other) 
+    : baseTopSpeed(other.baseTopSpeed), baseAcceleration(other.baseAcceleration), 
+      baseCornering(other.baseCornering) {
+    for(auto p : other.parts) parts.push_back(p->clone());
+}
+
+void swap(Car& first, Car& second) noexcept {
+    std::swap(first.parts, second.parts);
+    std::swap(first.baseTopSpeed, second.baseTopSpeed);
+    std::swap(first.baseAcceleration, second.baseAcceleration);
+    std::swap(first.baseCornering, second.baseCornering);
+}
+
+Car& Car::operator=(Car other) {
+    swap(*this, other);
+    return *this;
+}
+int Car::get_topSpeed() const {
+    double mult = 1.0;
+    for(Part* p : parts) {
+        if(dynamic_cast<Engine*>(p)) mult *= p->getModifier();
+    }
+    return (int)(baseTopSpeed * mult);
+}
+
+int Car::get_acceleration() const {
+    double mult = 1.0;
+    for(Part* p : parts) {
+        if(dynamic_cast<Chassis*>(p)) mult *= p->getModifier();
+    }
+    return (int)(baseAcceleration * mult);
+}
+
+int Car::get_cornerSpeed() const {
+    double mult = 1.0;
+    for(Part* p : parts) {
+        if(dynamic_cast<AeroKit*>(p)) mult *= p->getModifier();
+    }
+    return (int)(baseCornering * mult);
+}
+
+std::ostream& operator<<(std::ostream& os, const Car& c) {
+    os << "Car Performance [TS: " << c.get_topSpeed() << " | ACC: " << c.get_acceleration() << "]\n";
     
-    int budget, designEfficiency, researchPower, pitCrewSpeed, strategyIntel;
-    int racesWon = 0, poles = 0, points = 0;
-
-public:
-    Team(int id, const std::string& name, int budget, int design, int research, int pit, int strategy);
-    ~Team();
-    Team(const Team& other);
-    Team& operator=(const Team& other);
-
-    void add_driver(Driver* d) { drivers.push_back(d); }
-    void build_car();
-    void update(int place);
-
-    bool operator<(const Team& other) const { return this->points > other.points; }
-
-    Car* get_car() const { return car; }
-    int get_id() const { return id; }
-    const std::string& get_name() const { return name; }
-    int get_points() const { return points; }
-    const std::vector<Driver*>& get_drivers() const { return drivers; }
-
-    friend std::ostream& operator<<(std::ostream& os, const Team& t);
-};
-
-#endif
+    for(auto p : c.parts) {
+        os << " - " << *p << "\n"; 
+    }
+    return os;
+}

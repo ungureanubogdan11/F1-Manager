@@ -10,17 +10,17 @@ void Race::sim_race() {
     std::vector<std::pair<double, Driver*>> results;
 
     for (Driver* d : runningOrder) {
-        Car* c = d->get_team()->get_car(); // Direct pointer access
+        Car* c = d->get_team()->get_car(); 
 
         double carPower = (c->get_topSpeed() * (track->get_topSpeed_weight() / 100.0)) +
                           (c->get_cornerSpeed() * (track->get_cornerSpeed_weight() / 100.0)) +
-                          (c->get_acceleration() * 0.2) + (c->get_aeroPerformance() * 0.2);
+                          (c->get_acceleration() * 0.3);
 
         double driverSkill = (d->get_pace() * 0.5) + (d->get_experience() * 0.3);
         
         std::normal_distribution<double> riskDist(0, 2.0 + (d->get_aggressiveness() * 0.1));
         double totalScore = carPower + driverSkill + riskDist(gen);
-
+        
         results.push_back({totalScore, d});
     }
 
@@ -31,3 +31,4 @@ void Race::sim_race() {
     runningOrder.clear();
     for (auto& p : results) runningOrder.push_back(p.second);
 }
+

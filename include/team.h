@@ -25,6 +25,8 @@ public:
     void add_driver(Driver* d) { drivers.push_back(d); }
     void build_car();
     void update(int place);
+    void upgradeCar();
+    void processDamage(int raceIntensity);
 
     bool operator<(const Team& other) const { return this->points > other.points; }
 
@@ -33,6 +35,7 @@ public:
     const std::string& get_name() const { return name; }
     int get_points() const { return points; }
     const std::vector<Driver*>& get_drivers() const { return drivers; }
+    int get_researchPower() const { return researchPower; }
 
     friend std::ostream& operator<<(std::ostream& os, const Team& t);
 };

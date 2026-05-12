@@ -7,9 +7,8 @@
 
 class Team; 
 
-extern const std::vector<int> gp_points;
-
 class Driver {
+    static int next_id;
     int id;
     std::string name;
     Team* team; 
@@ -19,8 +18,9 @@ class Driver {
     int racesWon = 0, poles = 0, points = 0;
 
 public:
-    Driver(int id, const std::string& name, Team* team, double price, 
-           int exp, int pace, int agg, int aware, int tyre);
+    Driver(const std::string& name, Team* team, double price, 
+           int exp, int pace, int agg, int aware, int tyre) {
+           }
 
     void update(int place);
     bool operator<(const Driver& other) const;

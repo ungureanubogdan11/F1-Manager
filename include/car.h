@@ -1,21 +1,30 @@
 #ifndef CAR_H
 #define CAR_H
 
-#include <iostream>
+#include "part.h"
+#include <vector>
 
 class Car {
-    int topSpeed, acceleration, cornerSpeed, aeroPerformance;
+    std::vector<Part*> parts; 
+    
+    int baseTopSpeed;
+    int baseAcceleration;
+    int baseCornering;
 
 public:
-    Car(int topSpeed, int acceleration, int cornerSpeed, int aeroPerformance);
-    Car(const Car& other);
-    Car& operator=(const Car& other);
-    ~Car() = default;
+    Car(int ts, int acc, int cs);
+    ~Car();
 
-    int get_topSpeed() const { return topSpeed; }
-    int get_cornerSpeed() const { return cornerSpeed; }
-    int get_acceleration() const { return acceleration; }
-    int get_aeroPerformance() const { return aeroPerformance; }
+    Car(const Car& other);
+    Car& operator=(Car other);
+    friend void swap(Car& first, Car& second) noexcept;
+
+    void addPart(Part* p) { parts.push_back(p); }
+    const std::vector<Part*>& getParts() const { return parts; }
+
+    int get_topSpeed() const;
+    int get_acceleration() const;
+    int get_cornerSpeed() const;
 
     friend std::ostream& operator<<(std::ostream& os, const Car& c);
 };
