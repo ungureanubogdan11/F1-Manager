@@ -1,9 +1,15 @@
 #include "car.h"
 #include "part.h"
+#include "exceptions.h"
 #include <algorithm>
 
 Car::Car(int ts, int acc, int cs) 
-    : baseTopSpeed(ts), baseAcceleration(acc), baseCornering(cs) {}
+    : baseTopSpeed(ts), baseAcceleration(acc), baseCornering(cs) {
+
+    if (ts <= 0 || acc <= 0 || cs <= 0) {
+        throw InvalidAttributeException("Car stats (TS/ACC/CS)");
+    }
+}
 
 Car::~Car() {
     for(auto p : parts) delete p;

@@ -2,6 +2,7 @@
 #include "driver.h"
 #include "car.h"
 #include "championship.h"
+#include "exceptions.h"
 #include <random>
 #include <ctime>
 
@@ -66,14 +67,19 @@ std::ostream& operator<<(std::ostream& os, const Team& t) {
 }
 
 void Team::upgradeCar() {
-    if(!car) return;
+    if (!car) throw CarNotReadyException();
+
+    if (budget < 50) {
+        throw InsufficientFundsException(50);
+    }
+
     for(Part* p : car->getParts()) {
         p->develop(this->researchPower); 
     }
 }
 
 void Team::processDamage(int raceIntensity) {
-    if (!car) return;
+    if (!car) throw CarNotReadyException();
 
     static std::mt19937 gen(time(0));
     std::uniform_real_distribution<double> damageProb(0.0, 1.0);
