@@ -26,35 +26,17 @@ Car& Car::operator=(Car other) {
     swap(*this, other);
     return *this;
 }
-int Car::get_topSpeed() const {
-    double mult = 1.0;
-    for(Part* p : parts) {
-        if(dynamic_cast<Engine*>(p)) mult *= p->getModifier();
-    }
-    return (int)(baseTopSpeed * mult);
-}
 
-int Car::get_acceleration() const {
-    double mult = 1.0;
-    for(Part* p : parts) {
-        if(dynamic_cast<Chassis*>(p)) mult *= p->getModifier();
-    }
-    return (int)(baseAcceleration * mult);
-}
+double Car::computeCarPower(const Track* track) const {
+    double topSpeedMod = 1.0, corneringMod = 1.0, accelMod = 1.0;
 
-int Car::get_cornerSpeed() const {
-    double mult = 1.0;
-    for(Part* p : parts) {
-        if(dynamic_cast<AeroKit*>(p)) mult *= p->getModifier();
+    for (Part* p : parts) {
+        if (auto* e = dynamic_cast<Engine*>(p)) topSpeedMod = e->getModifier();
+        else if (auto* a = dynamic_cast<AeroKit*>(p)) corneringMod = a->getModifier();
+        else if (auto* c = dynamic_cast<Chassis*>(p)) accelMod = c->getModifier();
     }
-    return (int)(baseCornering * mult);
-}
 
-std::ostream& operator<<(std::ostream& os, const Car& c) {
-    os << "Car Performance [TS: " << c.get_topSpeed() << " | ACC: " << c.get_acceleration() << "]\n";
-    
-    for(auto p : c.parts) {
-        os << " - " << *p << "\n"; 
-    }
-    return os;
+    return (this->baseTopSpeed * topSpeedMod * track->get_topSpeed_weight()) +
+           (this->baseCornering * corneringMod * track->get_cornerSpeed_weight()) +
+           (this->baseAcceleration * accelMod);
 }

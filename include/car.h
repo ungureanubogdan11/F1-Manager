@@ -2,6 +2,7 @@
 #define CAR_H
 
 #include "part.h"
+#include "track.h"
 #include <vector>
 
 class Car {
@@ -21,10 +22,7 @@ public:
 
     void addPart(Part* p) { parts.push_back(p); }
     const std::vector<Part*>& getParts() const { return parts; }
-
-    int get_topSpeed() const;
-    int get_acceleration() const;
-    int get_cornerSpeed() const;
+    double computeCarPower(const Track * track) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Car& c);
 };
