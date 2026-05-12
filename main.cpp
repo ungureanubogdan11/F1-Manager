@@ -368,7 +368,7 @@ class Race {
 
     void sim_race() {
         static std::mt19937 gen(time(0));
-        std::normal_distribution<double> luck(0, 8.0);
+        // std::normal_distribution<double> luck(0, 8.0);
         std::vector<std::pair<double, Driver*>> results;
 
         for (Driver* d : runningOrder) {
@@ -387,9 +387,6 @@ class Race {
             std::normal_distribution<double> riskDistribution(0, riskSpread);
             double riskOutcome = riskDistribution(gen);
 
-            if (riskOutcome < 0) {
-                riskOutcome *= (1.0 - (d->get_awareness() / 200.0)); 
-            }
 
             double totalScore = carPower + driverSkill + riskOutcome + strategyFactor;
             results.push_back({totalScore, d});
