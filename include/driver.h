@@ -2,35 +2,39 @@
 #define DRIVER_H
 
 #include <string>
-#include <iostream>
 #include <vector>
+#include <iostream>
+
+class Team; 
 
 extern const std::vector<int> gp_points;
 
 class Driver {
     int id;
     std::string name;
-    int team_id;
+    Team* team; 
     double price; 
+
     int experience, pace, aggressiveness, awareness, tyreManagement;
     int racesWon = 0, poles = 0, points = 0;
 
 public:
-    Driver(int id, const std::string& name, int team_id, double price, 
+    Driver(int id, const std::string& name, Team* team, double price, 
            int exp, int pace, int agg, int aware, int tyre);
 
     void update(int place);
     bool operator<(const Driver& other) const;
-    
-    int get_points() const;
-    const std::string& get_name() const;
-    int get_id() const;
-    int get_team_id() const;
-    int get_pace() const;
-    int get_experience() const;
-    int get_aggressiveness() const;
-    int get_awareness() const;
-    int get_tyreManagement() const;
+
+    // Getters
+    int get_id() const { return id; }
+    const std::string& get_name() const { return name; }
+    Team* get_team() const { return team; }
+    int get_points() const { return points; }
+    int get_pace() const { return pace; }
+    int get_experience() const { return experience; }
+    int get_aggressiveness() const { return aggressiveness; }
+    int get_awareness() const { return awareness; }
+    int get_tyreManagement() const { return tyreManagement; }
 
     friend std::ostream& operator<<(std::ostream& os, const Driver& d);
 };

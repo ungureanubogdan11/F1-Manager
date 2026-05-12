@@ -7,14 +7,12 @@ class Championship {
     std::vector<Driver*> driverStandings;
     std::vector<Team*> teamStandings;
     std::vector<Race*> races;
-    std::unordered_map<int, Driver*> driverLookup;
-    std::unordered_map<int, Team*> teamLookup;
 
 public:
-    void add_team(Team* team);
-    void add_race(Race* race);
-    void update_standings(const Race* race);
+    void add_team(Team* t);
+    void add_race(Race* r) { races.push_back(r); }
     void sim_championship();
+    void update_standings(const Race* r);
     void print_table();
 };
 #endif

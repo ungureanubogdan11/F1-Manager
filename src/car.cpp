@@ -1,28 +1,40 @@
+#ifndef TEAM_H
+#define TEAM_H
+
 #include "car.h"
+#include <string>
+#include <vector>
 
-Car::Car(int ts, int acc, int cs, int aero) 
-    : topSpeed(ts), acceleration(acc), cornerSpeed(cs), aeroPerformance(aero) {}
+class Driver; 
 
-Car::Car(const Car& other) 
-    : topSpeed(other.topSpeed), acceleration(other.acceleration), 
-      cornerSpeed(other.cornerSpeed), aeroPerformance(other.aeroPerformance) {}
+class Team {
+    int id;
+    std::string name;
+    std::vector<Driver*> drivers;
+    Car* car;
+    
+    int budget, designEfficiency, researchPower, pitCrewSpeed, strategyIntel;
+    int racesWon = 0, poles = 0, points = 0;
 
-Car& Car::operator=(const Car& other) {
-    if(this == &other) return *this;
-    topSpeed = other.topSpeed;
-    acceleration = other.acceleration;
-    cornerSpeed = other.cornerSpeed;
-    aeroPerformance = other.aeroPerformance;
-    return *this;
-}
+public:
+    Team(int id, const std::string& name, int budget, int design, int research, int pit, int strategy);
+    ~Team();
+    Team(const Team& other);
+    Team& operator=(const Team& other);
 
-int Car::get_topSpeed() const { return topSpeed; }
-int Car::get_cornerSpeed() const { return cornerSpeed; }
-int Car::get_acceleration() const { return acceleration; }
-int Car::get_aeroPerformance() const { return aeroPerformance; }
+    void add_driver(Driver* d) { drivers.push_back(d); }
+    void build_car();
+    void update(int place);
 
-std::ostream& operator<<(std::ostream& os, const Car& c) {
-    os << "Top Speed: " << c.topSpeed << "\nAccel: " << c.acceleration 
-       << "\nCornering: " << c.cornerSpeed << "\nAero: " << c.aeroPerformance << "\n";
-    return os;
-}
+    bool operator<(const Team& other) const { return this->points > other.points; }
+
+    Car* get_car() const { return car; }
+    int get_id() const { return id; }
+    const std::string& get_name() const { return name; }
+    int get_points() const { return points; }
+    const std::vector<Driver*>& get_drivers() const { return drivers; }
+
+    friend std::ostream& operator<<(std::ostream& os, const Team& t);
+};
+
+#endif

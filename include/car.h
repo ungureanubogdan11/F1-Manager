@@ -10,11 +10,12 @@ public:
     Car(int topSpeed, int acceleration, int cornerSpeed, int aeroPerformance);
     Car(const Car& other);
     Car& operator=(const Car& other);
+    ~Car() = default;
 
-    int get_topSpeed() const;
-    int get_cornerSpeed() const;
-    int get_acceleration() const;
-    int get_aeroPerformance() const;
+    int get_topSpeed() const { return topSpeed; }
+    int get_cornerSpeed() const { return cornerSpeed; }
+    int get_acceleration() const { return acceleration; }
+    int get_aeroPerformance() const { return aeroPerformance; }
 
     friend std::ostream& operator<<(std::ostream& os, const Car& c);
 };
