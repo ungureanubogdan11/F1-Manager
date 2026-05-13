@@ -67,7 +67,7 @@ std::ostream& operator<<(std::ostream& os, const Team& t) {
 }
 
 void Team::upgradeCar() {
-    if (!car) throw CarNotReadyException();
+    if (!car) {throw CarNotReadyException(); return;}
 
     if (budget < 50) {
         throw InsufficientFundsException(50);
@@ -79,7 +79,7 @@ void Team::upgradeCar() {
 }
 
 void Team::processDamage(int raceIntensity) {
-    if (!car) throw CarNotReadyException();
+    if (!car) {throw CarNotReadyException(); return;}
 
     static std::mt19937 gen(time(0));
     std::uniform_real_distribution<double> damageProb(0.0, 1.0);
