@@ -50,7 +50,6 @@ include(cmake/CopyHelper.cmake)
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
-    oop
     main.cpp 
     src/team.cpp 
     src/driver.cpp 
