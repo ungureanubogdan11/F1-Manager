@@ -20,7 +20,7 @@ public:
     void print_table();
 
     static int getPointsForPlace(int place) {
-        if (place >= 1 && place <= gp_points.size()) {
+        if (place >= 1 && place <= 10) {
             return gp_points[place - 1];
         }
         return 0;
