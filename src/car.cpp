@@ -34,15 +34,16 @@ Car& Car::operator=(Car other) {
 }
 
 double Car::computeCarPower(const Track* track) const {
-    double topSpeedMod = 1.0, corneringMod = 1.0, accelMod = 1.0;
+    double topSpeedMod = 1.0, corneringMod = 1.0, accelMod = 1.0, gearboxMod = 1.0;
 
     for (Part* p : parts) {
         if (auto* e = dynamic_cast<Engine*>(p)) topSpeedMod = e->getModifier();
         else if (auto* a = dynamic_cast<AeroKit*>(p)) corneringMod = a->getModifier();
         else if (auto* c = dynamic_cast<Chassis*>(p)) accelMod = c->getModifier();
+        else if (dynamic_cast<Gearbox*>(p)) gearboxMod = p->getModifier();
     }
 
     return (this->baseTopSpeed * topSpeedMod * track->get_topSpeed_weight()) +
            (this->baseCornering * corneringMod * track->get_cornerSpeed_weight()) +
-           (this->baseAcceleration * accelMod);
+           (this->baseAcceleration * accelMod * gearboxMod);
 }

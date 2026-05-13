@@ -31,14 +31,12 @@ void Championship::sim_championship() {
         
         update_standings(r);
 
-        for (Team* t : teamStandings) {
-            
-            
+        for (Team* t : teamStandings) {            
             
             for (Driver* d : t->get_drivers()) {
                 if(chanceDist(gen) < damageThreshold) {
                     std::cout << ">>> Driver " << d->get_name() << " damaged the car! <<<\n";
-                    int intensity = computeRI(r->get_track(), d, r);
+                    int intensity = computeRaceIntensity(r->get_track(), d, r);
                     t->processDamage(intensity);
                 }
             }
@@ -62,7 +60,7 @@ void Championship::print_table() {
     for(auto d : driverStandings) std::cout << *d << "\n";
 }
 
-int computeRI(const Track * track, const Driver * driver, const Race * r) {
+int Championship::computeRaceIntensity(const Track * track, const Driver * driver, const Race * r) {
     double trackFactor = (track->get_tyreWear() + track->get_topSpeed_weight()) / 2.0;
 
     double driverFactor = driver->get_aggressiveness() * 0.5;

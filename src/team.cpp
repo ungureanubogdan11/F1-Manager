@@ -54,6 +54,11 @@ void Team::build_car() {
 
     if(car) delete car;
     car = new Car(ts, acc, cs);
+
+    car->addPart(new Engine());    
+    car->addPart(new AeroKit());   
+    car->addPart(new Chassis());   
+    car->addPart(new Gearbox());
 }
 
 void Team::update(int place) {
@@ -97,6 +102,9 @@ void Team::processDamage(int raceIntensity) {
         } 
         else if (Chassis* c = dynamic_cast<Chassis*>(p)) {
             c->applyDamage(baseDamage * 0.5);
+        }
+        else if (Gearbox* g = dynamic_cast<Gearbox*>(p)) {
+            g->applyDamage(baseDamage * 0.8); 
         }
     }
 }

@@ -60,4 +60,12 @@ public:
     void display(std::ostream& os) const override { os << "Type: Chassis Frame"; }
 };
 
+class Gearbox : public Part {
+public:
+    Gearbox() : Part() {}
+    Part* clone() const override { return new Gearbox(*this); }
+    void updateModifier(int stat) override { modifier += (stat / 1400.0); }
+    void display(std::ostream& os) const override { os << "Transmission System"; }
+};
+
 #endif
