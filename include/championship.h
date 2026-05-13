@@ -8,7 +8,7 @@ class Championship {
     std::vector<Driver*> driverStandings;
     std::vector<Team*> teamStandings;
     std::vector<Race*> races;
-    int computeRaceIntensity(const Track * track, const Driver * driver, const Race * r);
+    static int computeRaceIntensity(const Track * track, const Driver * driver, const Race * r);
     
 public:
 

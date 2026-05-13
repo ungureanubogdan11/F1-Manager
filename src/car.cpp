@@ -37,10 +37,10 @@ double Car::computeCarPower(const Track* track) const {
     double topSpeedMod = 1.0, corneringMod = 1.0, accelMod = 1.0, gearboxMod = 1.0;
 
     for (Part* p : parts) {
-        if (auto* e = dynamic_cast<Engine*>(p)) topSpeedMod = e->getModifier();
-        else if (auto* a = dynamic_cast<AeroKit*>(p)) corneringMod = a->getModifier();
-        else if (auto* c = dynamic_cast<Chassis*>(p)) accelMod = c->getModifier();
-        else if (dynamic_cast<Gearbox*>(p)) gearboxMod = p->getModifier();
+        if (const auto* e = dynamic_cast<Engine*>(p)) topSpeedMod = e->getModifier();
+        else if (const auto* a = dynamic_cast<AeroKit*>(p)) corneringMod = a->getModifier();
+        else if (const auto* c = dynamic_cast<Chassis*>(p)) accelMod = c->getModifier();
+        else if (const auto * g = dynamic_cast<Gearbox*>(p)) gearboxMod = g->getModifier();
     }
 
     return (this->baseTopSpeed * topSpeedMod * track->get_topSpeed_weight()) +

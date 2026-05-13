@@ -15,7 +15,8 @@ int interval(int val, int st, int dr) {
 }
 
 Team::Team(const std::string& name, int budget, int design, int research, int pit, int strategy)
-    : name(name), 
+    : id(next_id++),
+      name(name), 
       car(nullptr),         
       budget(budget),       
       designEfficiency(design), 
@@ -80,7 +81,7 @@ std::ostream& operator<<(std::ostream& os, const Team& t) {
 }
 
 void Team::upgradeCar() {
-    if (!car) {throw CarNotReadyException(); return;}
+    if (!car) {throw CarNotReadyException(); }
 
     if (budget < 50) {
         throw InsufficientFundsException(50);
@@ -92,7 +93,7 @@ void Team::upgradeCar() {
 }
 
 void Team::processDamage(int raceIntensity) {
-    if (!car) {throw CarNotReadyException(); return;}
+    if (!car) {throw CarNotReadyException(); }
 
     static std::mt19937 gen(time(0));
     std::uniform_real_distribution<double> damageProb(0.0, 1.0);

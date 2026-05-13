@@ -12,7 +12,7 @@ class Driver {
     int id;
     std::string name;
     Team* team; 
-    double price; 
+    [[maybe_unused]] double price; 
 
     int experience, pace, aggressiveness, awareness, tyreManagement;
     int racesWon = 0, poles = 0, points = 0;
@@ -25,15 +25,15 @@ public:
     bool operator<(const Driver& other) const;
 
     // Getters
-    int get_id() const { return id; }
-    const std::string& get_name() const { return name; }
-    Team* get_team() const { return team; }
-    int get_points() const { return points; }
-    int get_pace() const { return pace; }
-    int get_experience() const { return experience; }
-    int get_aggressiveness() const { return aggressiveness; }
-    int get_awareness() const { return awareness; }
-    int get_tyreManagement() const { return tyreManagement; }
+    [[maybe_unused]] int get_id() const { return id; }
+    [[maybe_unused]] const std::string& get_name() const { return name; }
+    [[maybe_unused]] Team* get_team() const { return team; }
+    [[maybe_unused]] int get_points() const { return points; }
+    [[maybe_unused]] int get_pace() const { return pace; }
+    [[maybe_unused]] int get_experience() const { return experience; }
+    [[maybe_unused]] int get_aggressiveness() const { return aggressiveness; }
+    [[maybe_unused]] int get_awareness() const { return awareness; }
+    [[maybe_unused]] int get_tyreManagement() const { return tyreManagement; }
 
     friend std::ostream& operator<<(std::ostream& os, const Driver& d);
 };

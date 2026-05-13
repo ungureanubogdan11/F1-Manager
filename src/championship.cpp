@@ -19,8 +19,8 @@ void Championship::update_standings(const Race* r) {
         results[i]->update(i + 1);
         results[i]->get_team()->update(i + 1);
     }
-    std::sort(driverStandings.begin(), driverStandings.end(), [](Driver* a, Driver* b) { return *a < *b; });
-    std::sort(teamStandings.begin(), teamStandings.end(), [](Team* a, Team* b) { return *a < *b; });
+    std::sort(driverStandings.begin(), driverStandings.end(), [](const Driver* a, const Driver* b) { return *a < *b; });
+    std::sort(teamStandings.begin(), teamStandings.end(), [](const Team* a, const Team* b) { return *a < *b; });
 }
 
 void Championship::sim_championship() {
@@ -40,7 +40,7 @@ void Championship::sim_championship() {
 
         for (Team* t : teamStandings) {            
             
-            for (Driver* d : t->get_drivers()) {
+            for (const Driver* d : t->get_drivers()) {
                 if(chanceDist(gen) < damageThreshold) {
                     std::cout << ">>> Driver " << d->get_name() << " damaged the car! <<<\n";
                     int intensity = computeRaceIntensity(r->get_track(), d, r);
@@ -64,11 +64,11 @@ void Championship::sim_championship() {
 
 void Championship::print_table() {
     std::cout << "\n--- STANDINGS ---\n";
-    for(auto d : driverStandings) std::cout << *d << "\n";
+    for(const auto* d : driverStandings) std::cout << *d << "\n";
 }
 
 int Championship::computeRaceIntensity(const Track * track, const Driver * driver, const Race * r) {
-    double trackFactor = (track->get_tyreWear() + track->get_topSpeed_weight()) / 2.0;
+    double trackFactor = (track->get_tyreWear() + track->get_topSpeed_weight() + driver->get_tyreManagement()) / 3.0;
 
     double driverFactor = driver->get_aggressiveness() * 0.5;
 

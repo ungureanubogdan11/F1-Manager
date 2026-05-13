@@ -7,14 +7,14 @@
 #include "race.h"
 
 int main() {
-    Championship f1_season;
     std::vector<Team*> Teams;
     std::vector<Driver*> Drivers;
     std::vector<Race*> Races;
     std::vector<Track*> Tracks;
-
+    
     std::ifstream inputFile("data.txt");
     
+    Championship f1_season;
     try {
         if (!inputFile.is_open()) {
             throw RacingException("Nu s-a putut deschide fisierul data.txt!");
