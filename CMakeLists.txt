@@ -49,6 +49,7 @@ include(cmake/CopyHelper.cmake)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
+# Adaugă toate fișierele sursă aici
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp 
     src/team.cpp 
@@ -56,13 +57,13 @@ add_executable(${MAIN_EXECUTABLE_NAME}
     src/car.cpp 
     src/race.cpp 
     src/championship.cpp
-    src/track.cpp
+    src/Example.cpp 
 )
 target_sources(${MAIN_EXECUTABLE_NAME}
     PRIVATE
         src/Example.cpp
                 )
-target_include_directories(oop PUBLIC include)
+target_include_directories(${MAIN_EXECUTABLE_NAME} PUBLIC include)
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
