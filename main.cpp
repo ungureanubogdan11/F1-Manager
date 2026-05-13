@@ -14,12 +14,12 @@ int main() {
     
     std::ifstream inputFile("data.txt");
     
-    Championship f1_season;
     try {
         if (!inputFile.is_open()) {
             throw RacingException("Nu s-a putut deschide fisierul data.txt!");
         }
 
+        Championship f1_season;
         std::string type;
         while (inputFile >> type) {
             if (type == "TEAM") {

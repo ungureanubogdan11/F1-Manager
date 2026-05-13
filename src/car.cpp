@@ -2,6 +2,7 @@
 #include "part.h"
 #include "exceptions.h"
 #include <algorithm>
+#include <iomanip>
 
 Car::Car(int ts, int acc, int cs) 
     : baseTopSpeed(ts), baseAcceleration(acc), baseCornering(cs) {
@@ -10,7 +11,6 @@ Car::Car(int ts, int acc, int cs)
         throw InvalidAttributeException("Car stats (TS/ACC/CS)");
     }
 }
-
 Car::~Car() {
     for(auto p : parts) delete p;
 }
@@ -18,7 +18,14 @@ Car::~Car() {
 Car::Car(const Car& other) 
     : baseTopSpeed(other.baseTopSpeed), baseAcceleration(other.baseAcceleration), 
       baseCornering(other.baseCornering) {
-    for(auto p : other.parts) parts.push_back(p->clone());
+    for(const auto p : other.parts) parts.push_back(p->clone());
+}
+
+std::ostream& operator<<(std::ostream& os, const Car& c) {
+    os << "Car Stats [Base TS: " << c.baseTopSpeed 
+       << ", Acc: " << c.baseAcceleration 
+       << ", CS: " << c.baseCornering << "] ";
+    return os;
 }
 
 void swap(Car& first, Car& second) noexcept {

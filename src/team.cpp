@@ -99,7 +99,7 @@ void Team::processDamage(int raceIntensity) {
     std::uniform_real_distribution<double> damageProb(0.0, 1.0);
 
     for (Part* p : car->getParts()) {
-        double baseDamage = raceIntensity / 10;
+        double baseDamage = raceIntensity / 10.;
 
         if (Engine* e = dynamic_cast<Engine*>(p)) {
             e->applyDamage(baseDamage * 1.5);
