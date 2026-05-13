@@ -65,7 +65,7 @@ int main() {
                     throw RacingException("Format invalid pentru RACE_DATA!");
                 }
 
-                Race::Weather w;
+                Race::Weather w = Race::DRY;
                 if (weatherStr == "DRY") {
                     w = Race::DRY;
                 } else if (weatherStr == "WET") {
