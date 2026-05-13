@@ -6,14 +6,16 @@
 #include "track.h"
 #include <vector>
 
-enum Weather { DRY, WET, RAINING };
 
 class Race {
+public:
+    enum Weather { DRY, WET, RAINING };
+private:
     int raceNumber;
     Weather weather;
     Track* track;
     std::vector<Driver*> runningOrder;
-
+    
 public:
     Race(int num, Weather w, const std::vector<Driver*>& order, Track* t);
     void sim_race();

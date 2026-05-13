@@ -8,6 +8,7 @@
 class Driver; 
 
 class Team {
+    static int next_id;
     int id;
     std::string name;
     std::vector<Driver*> drivers;
@@ -17,7 +18,7 @@ class Team {
     int racesWon = 0, poles = 0, points = 0;
 
 public:
-    Team(int id, const std::string& name, int budget, int design, int research, int pit, int strategy);
+    Team(const std::string& name, int budget, int design, int research, int pit, int strategy);
     ~Team();
     Team(const Team& other);
     Team& operator=(const Team& other);

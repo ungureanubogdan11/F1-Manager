@@ -19,8 +19,7 @@ class Driver {
 
 public:
     Driver(const std::string& name, Team* team, double price, 
-           int exp, int pace, int agg, int aware, int tyre) {
-           }
+           int exp, int pace, int agg, int aware, int tyre);
 
     void update(int place);
     bool operator<(const Driver& other) const;

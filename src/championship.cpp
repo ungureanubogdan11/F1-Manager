@@ -7,7 +7,10 @@ const std::vector<int> Championship::gp_points = {25, 18, 15, 12, 10, 8, 6, 4, 2
 
 void Championship::add_team(Team* t) {
     teamStandings.push_back(t);
-    for(Driver* d : t->get_drivers()) driverStandings.push_back(d);
+}
+
+void Championship::add_driver(Driver * d) {
+    driverStandings.push_back(d);
 }
 
 void Championship::update_standings(const Race* r) {
@@ -21,6 +24,10 @@ void Championship::update_standings(const Race* r) {
 }
 
 void Championship::sim_championship() {
+    for(Team * t : teamStandings) {
+        t->build_car();
+    }
+
     static std::mt19937 gen(time(0));
     std::uniform_real_distribution<double> chanceDist(0.0, 1.0);
     double upgradeThreshold = 0.2;
@@ -65,7 +72,7 @@ int Championship::computeRaceIntensity(const Track * track, const Driver * drive
 
     double driverFactor = driver->get_aggressiveness() * 0.5;
 
-    double weatherMultiplier = (r->get_weather() == DRY) ? 1.0 : 1.25;
+    double weatherMultiplier = (r->get_weather() == Race::DRY) ? 1.0 : 1.25;
 
     return static_cast<int>((trackFactor + driverFactor) * weatherMultiplier);
 }

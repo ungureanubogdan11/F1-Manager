@@ -6,14 +6,16 @@
 #include <random>
 #include <ctime>
 
+int Team::next_id = 0;
+
 int interval(int val, int st, int dr) {
     if(val < st) return st;
     if(val > dr) return dr;
     return val;
 }
 
-Team::Team(int id, const std::string& name, int budget, int design, int research, int pit, int strategy)
-    : id(id), name(name), budget(budget), designEfficiency(design), 
+Team::Team(const std::string& name, int budget, int design, int research, int pit, int strategy)
+    : id(next_id++), name(name), budget(budget), designEfficiency(design), 
       researchPower(research), pitCrewSpeed(pit), strategyIntel(strategy), car(nullptr) {}
 
 Team::~Team() { delete car; }

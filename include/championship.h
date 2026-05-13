@@ -13,6 +13,7 @@ class Championship {
 public:
 
     void add_team(Team* t);
+    void add_driver(Driver* d);
     void add_race(Race* r) { races.push_back(r); }
     void sim_championship();
     void update_standings(const Race* r);

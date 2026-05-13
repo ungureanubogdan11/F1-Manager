@@ -1,2 +1,16 @@
-5
-11 22 33 44 55
+TEAM Red_Bull 500 85 90
+TEAM Mercedes 450 80 85
+TEAM Ferrari 480 82 88
+TEAM McLaren 400 75 80
+TEAM Aston_Martin 350 70 75
+
+DRIVER Max_Verstappen 0 95 90 85
+DRIVER Sergio_Perez 0 85 88 60
+DRIVER Lewis_Hamilton 1 92 98 75
+DRIVER George_Russell 1 88 85 80
+DRIVER Charles_Leclerc 2 93 85 85
+DRIVER Carlos_Sainz 2 89 90 70
+DRIVER Lando_Norris 3 91 82 75
+DRIVER Oscar_Piastri 3 87 70 80
+DRIVER Fernando_Alonso 4 90 99 85
+DRIVER Lance_Stroll 4 82 75 70
