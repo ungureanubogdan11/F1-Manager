@@ -30,7 +30,7 @@ void Championship::sim_championship() {
 
     static std::mt19937 gen(time(0));
     std::uniform_real_distribution<double> chanceDist(0.0, 1.0);
-    double upgradeThreshold = 0.2;
+    double upgradeThreshold = 0.5;
     double damageThreshold = 0.4; 
 
     for(Race* r : races) {
