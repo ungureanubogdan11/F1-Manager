@@ -10,7 +10,7 @@ void Race::sim_race() {
     std::vector<std::pair<double, Driver*>> results;
 
     for (Driver* d : runningOrder) {
-        Car* c = d->get_team()->get_car(); 
+        const Car* c = d->get_team()->get_car(); 
 
         double carPower = c->computeCarPower(track);
         double driverSkill = (d->get_pace() * 0.5) + (d->get_experience() * 0.3);
@@ -26,6 +26,6 @@ void Race::sim_race() {
     });
 
     runningOrder.clear();
-    for (auto& p : results) runningOrder.push_back(p.second);
+    for (const auto& p : results) runningOrder.push_back(p.second);
 }
 

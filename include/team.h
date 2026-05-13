@@ -32,11 +32,11 @@ public:
     bool operator<(const Team& other) const { return this->points > other.points; }
 
     Car* get_car() const { return car; }
-    int get_id() const { return id; }
+    [[maybe_unused]]  int get_id() const { return id; }
     const std::string& get_name() const { return name; }
-    int get_points() const { return points; }
+    [[maybe_unused]] int get_points() const { return points; }
     const std::vector<Driver*>& get_drivers() const { return drivers; }
-    int get_researchPower() const { return researchPower; }
+    [[maybe_unused]]  int get_researchPower() const { return researchPower; }
 
     friend std::ostream& operator<<(std::ostream& os, const Team& t);
 };
