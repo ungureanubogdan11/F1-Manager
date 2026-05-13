@@ -4,7 +4,7 @@
 
 class Track {
     std::string name;
-    int laps, overtakeDifficulty, tyreWear, rainProbability, topSpeed, cornerSpeed;
+  [[maybe_unused]]  int laps, overtakeDifficulty, tyreWear, rainProbability, topSpeed, cornerSpeed;
 
 public:
     Track(const std::string& name, int laps, int diff, int wear, int rain, int ts, int cs)

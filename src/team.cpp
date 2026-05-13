@@ -15,8 +15,8 @@ int interval(int val, int st, int dr) {
 }
 
 Team::Team(const std::string& name, int budget, int design, int research, int pit, int strategy)
-    : id(next_id++), name(name), budget(budget), designEfficiency(design), 
-      researchPower(research), pitCrewSpeed(pit), strategyIntel(strategy), car(nullptr) {}
+    : name(name), budget(budget), designEfficiency(design), researchPower(research), 
+      pitCrewSpeed(pit), car(nullptr), strategyIntel(strategy) {}
 
 Team::~Team() { delete car; }
 

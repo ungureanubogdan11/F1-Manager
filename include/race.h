@@ -11,7 +11,7 @@ class Race {
 public:
     enum Weather { DRY, WET, RAINING };
 private:
-    int raceNumber;
+   [[maybe_unused]] int raceNumber;
     Weather weather;
     Track* track;
     std::vector<Driver*> runningOrder;

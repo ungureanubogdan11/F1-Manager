@@ -3,7 +3,7 @@
 #include <random>
 
 Race::Race(int num, Weather w, const std::vector<Driver*>& order, Track* t)
-    : raceNumber(num), weather(w), runningOrder(order), track(t) {}
+    : raceNumber(num), weather(w), track(t), runningOrder(order) {}
 
 void Race::sim_race() {
     static std::mt19937 gen(time(0));
