@@ -50,7 +50,7 @@ double Car::computeCarPower(const Track* track) const {
         else if (const auto * g = dynamic_cast<Gearbox*>(p)) gearboxMod = g->getModifier();
     }
 
-    return (this->baseTopSpeed * topSpeedMod * track->get_topSpeed_weight()) +
-           (this->baseCornering * corneringMod * track->get_cornerSpeed_weight()) +
-           (this->baseAcceleration * accelMod * gearboxMod);
+    return (this->baseTopSpeed * topSpeedMod * track->get_topSpeed_weight() * 0.4) +
+           (this->baseCornering * corneringMod * track->get_cornerSpeed_weight() * 0.3) +
+           (this->baseAcceleration * accelMod * gearboxMod * 0.2);
 }

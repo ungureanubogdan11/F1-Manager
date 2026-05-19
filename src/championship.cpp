@@ -35,11 +35,11 @@ void Championship::sim_championship() {
 
     for(Race* r : races) {
         r->sim_race();
+        r->print_runningOrder();
         
         update_standings(r);
-
-        for (Team* t : teamStandings) {            
-            
+        
+        for(Team * t : teamStandings) {
             for (const Driver* d : t->get_drivers()) {
                 if(chanceDist(gen) < damageThreshold) {
                     std::cout << ">>> Driver " << d->get_name() << " damaged the car! <<<\n";
@@ -47,16 +47,18 @@ void Championship::sim_championship() {
                     t->processDamage(intensity);
                 }
             }
+        }
 
+        for (Team* t : teamStandings) {            
+            
             if (chanceDist(gen) < upgradeThreshold) {
                 std::cout << ">>> Team " << t->get_name() << " brought upgrades! <<<\n";
                 t->upgradeCar();
             }
-
-            
         }
-        
+
         std::cout << "Round complete.\n";
+
     }
     
     print_table();

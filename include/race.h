@@ -19,6 +19,7 @@ private:
 public:
     Race(int num, Weather w, const std::vector<Driver*>& order, Track* t);
     void sim_race();
+    void print_runningOrder() const;
     const std::vector<Driver*>& get_runningOrder() const { return runningOrder; }
     Weather get_weather() const {return weather;}
     Track * get_track() const {return track;}
