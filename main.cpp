@@ -96,8 +96,8 @@ int main() {
         std::cerr << "EROARE CRITICA: " << e.what() << std::endl;
     }
 
-    std::string driverToSearch = "Max Verstappen";
-    Driver* foundDriver = findByName<Driver>(Drivers, driverToSearch);
+    const std::string driverToSearch = "Max Verstappen";
+    Driver* const foundDriver = findByName<Driver>(Drivers, driverToSearch);
 
     if (foundDriver != nullptr) {
         std::cout << "Pilotul " << driverToSearch << " fost gasit! Puncte: " << foundDriver->get_points() << "\n";
@@ -105,8 +105,8 @@ int main() {
         std::cout << "Pilotul " << driverToSearch << " nu exista.\n";
     }
 
-    std::string teamToSearch = "Ferrari";
-    Team* foundTeam = findByName<Team>(Teams, teamToSearch);
+    const std::string teamToSearch = "Ferrari";
+    Team* const foundTeam = findByName<Team>(Teams, teamToSearch);
 
     if (foundTeam != nullptr) {
         std::cout << "Echipa " << teamToSearch << " fost gasita! Puncte: " << foundTeam->get_points() << "\n";
