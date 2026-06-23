@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include <stdexcept>
 
 class Part {
 protected:
@@ -66,6 +68,26 @@ public:
     Part* clone() const override { return new Gearbox(*this); }
     void updateModifier(int stat) override { modifier += (stat / 2400.0); }
     void display(std::ostream& os) const override { os << "Transmission System"; }
+};
+class PartFactory {
+public:
+    static Part* createPart(const std::string& partType) {
+        if (partType == "Engine") {
+            return new Engine();
+        } 
+        else if (partType == "Aero") {
+            return new AeroKit();
+        } 
+        else if (partType == "Chassis") {
+            return new Chassis();
+        } 
+        else if (partType == "Gearbox") {
+            return new Gearbox();
+        } 
+        else {
+            throw std::invalid_argument("Factory Error: Tip de piesa necunoscut - " + partType);
+        }
+    }
 };
 
 #endif

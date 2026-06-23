@@ -64,10 +64,16 @@ void Team::build_car() {
     if(car) delete car;
     car = new Car(ts, acc, cs);
 
-    car->addPart(new Engine());    
-    car->addPart(new AeroKit());   
-    car->addPart(new Chassis());   
-    car->addPart(new Gearbox());
+    try {
+        car->addPart(PartFactory::createPart("Engine"));    
+        car->addPart(PartFactory::createPart("Aero"));   
+        car->addPart(PartFactory::createPart("Chassis"));   
+        car->addPart(PartFactory::createPart("Gearbox"));
+    } 
+    catch (const std::exception& e) {
+        std::cerr << "Eroare la asamblarea masinii pentru echipa " 
+                  << name << ": " << e.what() << '\n';
+    }
 }
 
 void Team::update(int place) {

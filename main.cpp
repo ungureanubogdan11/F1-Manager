@@ -5,6 +5,7 @@
 #include "championship.h"
 #include "exceptions.h"
 #include "race.h"
+#include "utils.h"
 
 int main() {
     std::vector<Team*> Teams;
@@ -19,7 +20,7 @@ int main() {
             throw RacingException("Nu s-a putut deschide fisierul data.txt!");
         }
 
-        Championship f1_season;
+        Championship& f1_season = Championship::getInstance();
         std::string type;
         while (inputFile >> type) {
             if (type == "TEAM") {
@@ -93,6 +94,24 @@ int main() {
         std::cerr << "EROARE JOC: " << e.what() << std::endl;
     } catch (const std::exception& e) {
         std::cerr << "EROARE CRITICA: " << e.what() << std::endl;
+    }
+
+    std::string driverToSearch = "Max Verstappen";
+    Driver* foundDriver = findByName<Driver>(Drivers, driverToSearch);
+
+    if (foundDriver != nullptr) {
+        std::cout << "Pilotul " << driverToSearch << " fost gasit! Puncte: " << foundDriver->get_points() << "\n";
+    } else {
+        std::cout << "Pilotul " << driverToSearch << " nu exista.\n";
+    }
+
+    std::string teamToSearch = "Ferrari";
+    Team* foundTeam = findByName<Team>(Teams, teamToSearch);
+
+    if (foundTeam != nullptr) {
+        std::cout << "Echipa " << teamToSearch << " fost gasita! Puncte: " << foundTeam->get_points() << "\n";
+    } else {
+        std::cout << "Echipa " << teamToSearch << " nu exista.\n";
     }
 
     for (auto d : Drivers) delete d;

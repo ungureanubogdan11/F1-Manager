@@ -4,13 +4,25 @@
 #include "race.h"
 
 class Championship {
+private:
     static const std::vector<int> gp_points;
     std::vector<Driver*> driverStandings;
     std::vector<Team*> teamStandings;
     std::vector<Race*> races;
-    static int computeRaceIntensity(const Track * track, const Driver * driver, const Race * r);
     
+    static int computeRaceIntensity(const Track * track, const Driver * driver, const Race * r);
+
+    Championship() = default;
+    ~Championship() = default;
+
 public:
+    Championship(const Championship&) = delete;
+    Championship& operator=(const Championship&) = delete;
+
+    static Championship& getInstance() {
+        static Championship instance; 
+        return instance;
+    }
 
     void add_team(Team* t);
     void add_driver(Driver* d);
@@ -26,4 +38,5 @@ public:
         return 0;
     }
 };
+
 #endif
